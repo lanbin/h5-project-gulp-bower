@@ -1,0 +1,14 @@
+{
+  "name": "h5",
+  "version": "0.0.1",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "normalize.css": "~3.0.3",
+    "hammerjs": "~2.0.4",
+    "jquery.transit": "~0.9.12"
+  }
+}
