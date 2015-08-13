@@ -9,6 +9,7 @@
     "jquery": "~2.1.4",
     "normalize.css": "~3.0.3",
     "hammerjs": "~2.0.4",
-    "jquery.transit": "~0.9.12"
+    "jquery.transit": "~0.9.12",
+    "waitForImages": "~2.1.0"
   }
 }

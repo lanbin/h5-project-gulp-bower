@@ -5,6 +5,8 @@ var
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
 	less = require('gulp-less'),
+	autoprefixer = require('gulp-autoprefixer'),
+	image = require('gulp-image'),
 	browserSync = require('browser-sync'),
 	del = require('del'),
 	gulpLoadPlugins = require('gulp-load-plugins'),
@@ -14,7 +16,7 @@ var
 	minifyCSS = require('gulp-minify-css'),
 
 	jsPath = "app/scripts/**/*.js",
-	lessPath = "app/less/**/*.less",
+	lessPath = "app/less/*.less",
 	imagePath = "app/image/**/*",
 	htmlPath = "app/*.html",
 	cleancss = new lessPluginCleanCSS({
@@ -25,7 +27,7 @@ var
 const $ = gulpLoadPlugins()
 const reload = browserSync.reload
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['dist']));
 
 gulp.task('lint', function() {
 	return gulp.src(jsPath)
@@ -37,6 +39,10 @@ gulp.task('less', function() {
 	return gulp.src(lessPath)
 		.pipe(less({
 			plugins: [cleancss]
+		}))
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
 		}))
 		.pipe(minifyCSS())
 		.pipe(gulp.dest('.tmp/css'))
@@ -64,6 +70,13 @@ gulp.task('images', function() {
 				this.end();
 			})))
 		.pipe(gulp.dest('dist/images'));
+})
+
+gulp.task('imagemin', function() {
+	return gulp.src(imagePath)
+		.pipe(image())
+		.pipe(gulp.dest('app/image'));
+
 })
 
 gulp.task('html', ['less', 'scripts'], function() {
@@ -129,8 +142,7 @@ gulp.task('extras', function() {
 	}).pipe(gulp.dest('dist'))
 })
 
-gulp.task('default', ['lint', 'less', 'scripts', 'watch'])
-gulp.task('build', ['html', 'images', 'extras'], function() {
+gulp.task('build', ['clean', 'html', 'images', 'extras'], function() {
 	return gulp.src('dist/**/*').pipe($.size({
 		title: 'build',
 		gzip: true
