@@ -4,7 +4,7 @@
 
 # Install
 
-```javascript
+```shell
 
 $ git clone https://github.com/lanbin/h5-project-gulp-bower.git
 $ npm install
@@ -12,3 +12,26 @@ $ bower install
 
 ```
 
+# Start
+
+```shell
+
+$ gulp serve
+
+```
+
+# Build
+
+```shell
+
+$ gulp build
+
+```
+
+# Image minify
+
+```shell
+
+$ gulp imagemini
+
+```
